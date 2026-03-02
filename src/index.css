@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Boldonse", ui-serif, Georgia, serif;
+  --font-headline: "Bodoni Moda", ui-serif, Georgia, serif;
+  --font-hand: "Caveat", cursive;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Aura glow button */
+.btn-aura {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: border-color 0.4s;
+}
+
+.btn-aura:hover {
+  border-color: transparent;
+}
+
+.btn-aura::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    #ef4444,
+    #f59e0b,
+    #3b82f6,
+    #8b5cf6,
+    #ef4444
+  );
+  z-index: -1;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.4s, filter 0.4s;
+}
+
+.btn-aura:hover::before {
+  opacity: 0.85;
+  filter: blur(18px);
+}
+
+.btn-aura::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: #0a0a0a;
+  z-index: -1;
+}
+
+/* Navbar name gradient hover */
+.nav-name {
+  position: relative;
+  -webkit-text-fill-color: currentColor;
+  transition: -webkit-text-fill-color 0.4s;
+}
+
+.nav-name::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #ef4444,
+    #f59e0b,
+    #3b82f6,
+    #8b5cf6,
+    #ef4444
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  filter: blur(0px);
+  transition: opacity 0.4s, filter 0.4s;
+  animation: gradient-slide 4s linear infinite;
+}
+
+.nav-name:hover::before {
+  opacity: 1;
+}
+
+/* Blur glow behind name on hover */
+.nav-name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #ef4444,
+    #f59e0b,
+    #3b82f6,
+    #8b5cf6,
+    #ef4444
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.4s;
+  animation: gradient-slide 4s linear infinite;
+  pointer-events: none;
+}
+
+.nav-name:hover::after {
+  opacity: 0.6;
+}
+
+@keyframes gradient-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Gradient line under navbar */
+.nav-gradient-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ef4444,
+    #f59e0b,
+    #3b82f6,
+    #8b5cf6,
+    transparent
+  );
+  opacity: 0.4;
+}
