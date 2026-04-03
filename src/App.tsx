@@ -29,6 +29,11 @@ const translations = {
       title: 'Stuff I\'ve Built',
       more: 'Check out my Github',
     },
+    research: {
+      title: 'Stuff I\'ve Researched',
+      subtitle: 'One highlighted study from my current research direction.',
+      focus: 'research focus'
+    },
     contact: {
       label: 'Contact',
       title: 'Let\'s Chat?',
@@ -78,6 +83,11 @@ const translations = {
     work: {
       title: 'Choses que j\'ai construites',
       more: 'Voir mon Github',
+    },
+    research: {
+      title: 'Choses Que J\'ai Explorées',
+      subtitle: 'Une etude mise en avant dans ma direction de recherche actuelle.',
+      focus: 'axe de recherche'
     },
     contact: {
       label: 'Contact',
@@ -129,6 +139,11 @@ const translations = {
       title: 'Cosas que he construido',
       more: 'Ver mi Github',
     },
+    research: {
+      title: 'Cosas Que He Investigado',
+      subtitle: 'Un estudio destacado de mi linea actual de investigacion.',
+      focus: 'enfoque de investigacion'
+    },
     contact: {
       label: 'Contacto',
       title: '¿Hablamos?',
@@ -176,13 +191,84 @@ export default function App() {
       title: { en: 'Etudly • Web App', fr: 'Etudly • Web App', es: 'Etudly • Web App' },
       category: { en: 'Scholar Platform. Grade Tracker', fr: 'Plateforme académique intelligente', es: 'Plataforma académica. Seguimiento de notas' },
       image: '/etudly.png',
+      description: {
+        en: 'A student dashboard focused on term organization, grade tracking, and academic follow-up in one clean workspace.',
+        fr: 'Un tableau de bord étudiant centré sur l\'organisation du semestre, le suivi des notes et le pilotage académique.',
+        es: 'Un dashboard estudiantil enfocado en organización semestral, seguimiento de notas y control académico en un solo lugar.'
+      },
+      stack: {
+        en: ['Vanilla JS', 'HTML5', 'CSS3', 'Firebase', 'Firestore', 'Vercel'],
+        fr: ['Vanilla JS', 'HTML5', 'CSS3', 'Firebase', 'Firestore', 'Vercel'],
+        es: ['Vanilla JS', 'HTML5', 'CSS3', 'Firebase', 'Firestore', 'Vercel']
+      },
       link: 'https://etudly.vercel.app',
     },
     {
       title: { en: 'Schedora • iOS App', fr: 'Schedora • iOS App', es: 'Schedora • iOS App' },
       category: { en: 'Academic Intelligent Calendar & Organizer', fr: 'Organisateur et emploi du temps intelligent', es: 'Calendario y organizador académico inteligente' },
       image: '/schedora.png',
+      description: {
+        en: 'A mobile-first planner that helps students map classes, deadlines, and daily priorities without losing context.',
+        fr: 'Un planificateur mobile qui aide les étudiants à organiser cours, échéances et priorités quotidiennes sans perdre le contexte.',
+        es: 'Un planificador mobile-first para organizar clases, entregas y prioridades diarias sin perder contexto.'
+      },
+      stack: {
+        en: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM'],
+        fr: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM'],
+        es: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM']
+      },
       link: 'https://github.com/francoxortiz1975/Schedora',
+    },
+    {
+      title: { en: 'UTM CampusApp', fr: 'UTM CampusApp', es: 'UTM CampusApp' },
+      category: {
+        en: 'Academic Group Project • Campus Services Hub',
+        fr: 'Projet académique en groupe • Hub de services campus',
+        es: 'Proyecto académico grupal • Hub de servicios del campus'
+      },
+      image: '',
+      description: {
+        en: 'A full-stack campus web app for UTM with food and gym availability, event calendar, interactive map, and a lost-and-found board.',
+        fr: 'Une web app full-stack pour UTM avec disponibilité food/gym, calendrier d\'événements, carte interactive et module objets trouvés.',
+        es: 'Una web app full-stack para UTM con disponibilidad de comida/gimnasio, calendario de eventos, mapa interactivo y módulo de objetos perdidos.'
+      },
+      stack: {
+        en: ['Next.js', 'TypeScript', 'Flask', 'SQLite', 'YOLOv8', 'OpenCV'],
+        fr: ['Next.js', 'TypeScript', 'Flask', 'SQLite', 'YOLOv8', 'OpenCV'],
+        es: ['Next.js', 'TypeScript', 'Flask', 'SQLite', 'YOLOv8', 'OpenCV']
+      },
+      link: 'https://github.com/HalfSchoolEdition/CSC301-Group-Project/',
+    },
+  ];
+
+  const researchPapers = [
+    {
+      title: {
+        en: 'Beyond One-Size-Fits-All Exercises: Personalizing Computer Science Worksheets with LLMs',
+        fr: 'Beyond One-Size-Fits-All Exercises: Personalizing Computer Science Worksheets with LLMs',
+        es: 'Beyond One-Size-Fits-All Exercises: Personalizing Computer Science Worksheets with LLMs'
+      },
+      accepted: {
+        en: 'Accepted by ACM ITiCSE 2026',
+        fr: 'Acceptee par ACM ITiCSE 2026',
+        es: 'Aceptada por ACM ITiCSE 2026'
+      },
+      category: {
+        en: 'CS Education Research',
+        fr: 'Recherche en education informatique',
+        es: 'Investigacion en educacion en computacion'
+      },
+      description: {
+        en: 'This research explores how Large Language Models generate personalized instructional materials in an introductory programming course, showing profile-based adaptation as critical support to reduce dropout and improve outcomes for students with lower prior knowledge and motivation.',
+        fr: 'Cette recherche explore l\'usage des grands modeles de langage pour generer des supports d\'apprentissage personnalises en programmation introductive, en montrant que l\'adaptation selon le profil etudiant est un soutien critique pour reduire l\'abandon et ameliorer les resultats des etudiants avec moins de connaissances prealables et de motivation.',
+        es: 'La investigacion explora el uso de Modelos de Lenguaje Grande para generar materiales de instruccion personalizados en un curso introductorio de programacion, demostrando que la adaptacion basada en el perfil del estudiante funciona como soporte critico para reducir la desercion y mejorar el desempeno de los alumnos con menor conocimiento previo y motivacion.'
+      },
+      stack: {
+        en: ['LLMs', 'Personalization', 'CS Education', 'Retention'],
+        fr: ['LLMs', 'Personnalisation', 'CS Education', 'Retention'],
+        es: ['LLMs', 'Personalizacion', 'CS Education', 'Retencion']
+      },
+      link: 'https://drive.google.com/file/d/1WxDI3qlBpHM5-mpY06pznxCRILnDQarE/view?usp=sharing'
     },
   ];
 
@@ -201,7 +287,7 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#e8e8e8] font-sans selection:bg-white/20 selection:text-white">
+    <div className="aura-stage relative min-h-screen overflow-x-clip bg-[#050505] text-[#e8e8e8] font-sans selection:bg-white/20 selection:text-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-[#0a0a0a]/90 backdrop-blur-md z-50 nav-gradient-line">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -372,7 +458,7 @@ export default function App() {
             </a>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -384,21 +470,60 @@ export default function App() {
                 className="group cursor-pointer"
               >
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
-                  <div className="aspect-[4/3] bg-[#111] rounded-2xl overflow-hidden mb-5 relative border border-white/5 group-hover:border-white/15 transition-all duration-500">
-                    <img
-                      src={project.image}
-                      alt={project.title[currentLang]}
-                      className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-700"
-                      referrerPolicy="no-referrer"
-                    />
+                  <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="bg-white/10 backdrop-blur-sm text-white p-2.5 rounded-full">
-                        <ExternalLink size={14} />
+                      <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                        <ExternalLink size={13} />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
+                      <div className="flex items-start gap-4">
+                        <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                          {project.image ? (
+                            <img
+                              src={project.image}
+                              alt={project.title[currentLang]}
+                              className="w-full h-full object-cover"
+                              referrerPolicy="no-referrer"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[11px] tracking-wide">
+                              UTM
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="space-y-3">
+                          <h3 className="font-sans text-lg md:text-xl font-medium text-white lowercase leading-tight">
+                            {project.title[currentLang]}
+                          </h3>
+                          <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                            {project.category[currentLang]}
+                          </p>
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
+                            {project.description[currentLang]}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
+                        <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
+                          technical stack
+                        </p>
+                        <ul className="flex flex-wrap gap-2">
+                          {project.stack[currentLang].map((tech, techIndex) => (
+                            <li
+                              key={techIndex}
+                              className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                            >
+                              {tech}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  <h3 className="font-sans text-lg font-medium text-white lowercase">{project.title[currentLang]}</h3>
-                  <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#666] lowercase mt-1">{project.category[currentLang]}</p>
                 </a>
               </motion.div>
             ))}
@@ -414,6 +539,90 @@ export default function App() {
               <span>{t.work.more}</span>
               <Github size={14} />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Research Section */}
+      <section className="py-24 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 md:mb-14">
+            <h2 className="text-4xl md:text-5xl text-white lowercase">
+              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                {currentLang === 'en' ? 'stuff i\'ve ' : currentLang === 'fr' ? 'choses que j\'ai ' : 'cosas que he '}
+              </span>
+              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                {currentLang === 'en' ? 'researched' : currentLang === 'fr' ? 'explorées' : 'investigado'}
+              </span>
+            </h2>
+            <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[#9a9a9a] leading-relaxed">
+              {t.research.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {researchPapers.map((paper, index) => (
+              <motion.div
+                key={paper.title.en}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08 }}
+                whileHover={{ y: -6 }}
+                className="group cursor-pointer"
+              >
+                <a href={paper.link} target="_blank" rel="noopener noreferrer">
+                  <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                        <ExternalLink size={13} />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
+                      <div className="flex items-start gap-4">
+                        <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[11px] tracking-wide">
+                            R&D
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
+                            {paper.title[currentLang]}
+                          </h3>
+                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff]">
+                            {paper.accepted[currentLang]}
+                          </p>
+                          <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                            {paper.category[currentLang]}
+                          </p>
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
+                            {paper.description[currentLang]}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
+                        <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
+                          {t.research.focus}
+                        </p>
+                        <ul className="flex flex-wrap gap-2">
+                          {paper.stack[currentLang].map((topicTag, tagIndex) => (
+                            <li
+                              key={tagIndex}
+                              className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                            >
+                              {topicTag}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
