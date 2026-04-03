@@ -31,7 +31,6 @@ const translations = {
     },
     research: {
       title: 'Stuff I\'ve Researched',
-      subtitle: 'One highlighted study from my current research direction.',
       focus: 'research focus'
     },
     contact: {
@@ -86,7 +85,6 @@ const translations = {
     },
     research: {
       title: 'Choses Que J\'ai Explorées',
-      subtitle: 'Une etude mise en avant dans ma direction de recherche actuelle.',
       focus: 'axe de recherche'
     },
     contact: {
@@ -141,7 +139,6 @@ const translations = {
     },
     research: {
       title: 'Cosas Que He Investigado',
-      subtitle: 'Un estudio destacado de mi linea actual de investigacion.',
       focus: 'enfoque de investigacion'
     },
     contact: {
