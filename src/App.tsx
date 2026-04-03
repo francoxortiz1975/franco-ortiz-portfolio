@@ -30,9 +30,7 @@ const translations = {
       more: 'Check out my Github',
     },
     research: {
-      title: 'Stuff I\'ve Researched',
-      focus: 'research focus'
-    },
+      title: 'Stuff I\'ve Researched'    },
     contact: {
       label: 'Contact',
       title: 'Let\'s Chat?',
@@ -84,8 +82,7 @@ const translations = {
       more: 'Voir mon Github',
     },
     research: {
-      title: 'Choses Que J\'ai Explorées',
-      focus: 'axe de recherche'
+      title: 'Choses Que J\'ai Explorées'
     },
     contact: {
       label: 'Contact',
@@ -138,8 +135,7 @@ const translations = {
       more: 'Ver mi Github',
     },
     research: {
-      title: 'Cosas Que He Investigado',
-      focus: 'enfoque de investigacion'
+      title: 'Cosas Que He Investigado'
     },
     contact: {
       label: 'Contacto',
