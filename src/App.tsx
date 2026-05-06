@@ -261,7 +261,7 @@ export default function App() {
         fr: ['LLMs', 'Personnalisation', 'CS Education', 'Retention'],
         es: ['LLMs', 'Personalizacion', 'CS Education', 'Retencion']
       },
-      link: 'https://drive.google.com/file/d/1WxDI3qlBpHM5-mpY06pznxCRILnDQarE/view?usp=sharing'
+      link: 'https://arxiv.org/html/2604.27433'
     },
   ];
 
