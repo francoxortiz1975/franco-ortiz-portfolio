@@ -172,7 +172,7 @@ const translations = {
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<Language>('en');
+  const [currentLang, setCurrentLang] = useState<Language>('fr');
   const [isLangOpen, setIsLangOpen] = useState(false);
 
   const t = translations[currentLang];
