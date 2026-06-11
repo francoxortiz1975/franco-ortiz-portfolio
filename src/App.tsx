@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code } from 'lucide-react';
+import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap } from 'lucide-react';
 
 type Language = 'en' | 'fr' | 'es';
 
@@ -200,20 +200,20 @@ export default function App() {
       link: 'https://etudly.vercel.app',
     },
     {
-      title: { en: 'Schedora • iOS App', fr: 'Schedora • iOS App', es: 'Schedora • iOS App' },
-      category: { en: 'Academic Intelligent Calendar & Organizer', fr: 'Organisateur et emploi du temps intelligent', es: 'Calendario y organizador académico inteligente' },
-      image: '/schedora.png',
+      title: { en: 'Sumay Coffee Club • Web App', fr: 'Sumay Coffee Club • App du Café', es: 'Sumay Coffee Club • Web App' },
+      category: { en: 'PWA for Ecuadorian Coffee Discovery', fr: 'PWA de découverte de cafés équatoriens', es: 'PWA de descubrimiento de cafeterías ecuatorianas' },
+      image: '/sumay.png',
       description: {
-        en: 'A mobile-first planner that helps students map classes, deadlines, and daily priorities without losing context.',
-        fr: 'Un planificateur mobile qui aide les étudiants à organiser cours, échéances et priorités quotidiennes sans perdre le contexte.',
-        es: 'Un planificador mobile-first para organizar clases, entregas y prioridades diarias sin perder contexto.'
+        en: 'A progressive web app for discovering Ecuadorian coffee shops: interactive catalog, user profiles, a collection system, and special offers.',
+        fr: 'Une PWA de découverte de cafés équatoriens : catalogue interactif, profils utilisateurs, système de collection et offres.',
+        es: 'Una PWA para descubrir cafeterías ecuatorianas: catálogo interactivo, perfiles de usuario, sistema de colección y ofertas.'
       },
       stack: {
-        en: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM'],
-        fr: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM'],
-        es: ['Swift', 'SwiftUI', 'Gemini API', 'PDFKit', 'Vision OCR', 'MVVM']
+        en: ['Vite', 'React', 'Supabase', 'Git'],
+        fr: ['Vite', 'React', 'Supabase', 'Git'],
+        es: ['Vite', 'React', 'Supabase', 'Git']
       },
-      link: 'https://github.com/francoxortiz1975/Schedora',
+      link: '',
     },
     {
       title: { en: 'UTM CampusApp', fr: 'UTM CampusApp', es: 'UTM CampusApp' },
@@ -287,6 +287,54 @@ export default function App() {
         es: ['Soporte Informático', 'Red', 'Plataformas de Correo', 'Gestión de Dispositivos']
       },
       link: '',
+    },
+  ];
+
+  const education = [
+    {
+      institution: 'Université Paris Dauphine - PSL',
+      country: { en: 'France', fr: 'France', es: 'Francia' },
+      period: '2026 - 2028',
+      degree: {
+        en: 'Master MIAGE (IT & Business Management)',
+        fr: 'Master MIAGE',
+        es: 'Máster MIAGE (Informática para la Gestión de Empresas)'
+      },
+      note: {
+        en: '',
+        fr: '',
+        es: ''
+      },
+    },
+    {
+      institution: 'University of Toronto',
+      country: { en: 'Canada', fr: 'Canada', es: 'Canadá' },
+      period: '2025 - 2026',
+      degree: {
+        en: 'Computer Science Coursework',
+        fr: 'Cours d\'informatique',
+        es: 'Cursos de informática'
+      },
+      note: {
+        en: '(Exchange Year)',
+        fr: '(Année d\'échange)',
+        es: '(Año de intercambio)'
+      },
+    },
+    {
+      institution: 'Université Grenoble Alpes',
+      country: { en: 'France', fr: 'France', es: 'Francia' },
+      period: '2023 - 2025',
+      degree: {
+        en: 'Bachelor\'s in Computer Science and Mathematics',
+        fr: 'Licence Informatique et Mathématiques',
+        es: 'Licenciatura en Informática y Matemáticas'
+      },
+      note: {
+        en: '',
+        fr: '',
+        es: ''
+      },
     },
   ];
 
@@ -596,7 +644,9 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project, index) => {
+              const Wrapper = project.link ? 'a' : 'div';
+              return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -606,13 +656,15 @@ export default function App() {
                 whileHover={{ y: -6 }}
                 className="group cursor-pointer"
               >
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                <Wrapper {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
                   <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
+                    {project.link && (
                     <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
                       <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
                         <ExternalLink size={13} />
                       </div>
                     </div>
+                    )}
 
                     <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
                       <div className="flex items-start gap-4">
@@ -661,9 +713,10 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Wrapper>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-12 md:hidden flex justify-center">
@@ -884,6 +937,43 @@ export default function App() {
                   {t.about.p5}
                 </span>
               </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className="py-28 px-6 border-t border-white/5">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="space-y-12"
+          >
+            <div>
+              <h2 className="text-4xl md:text-5xl text-white lowercase">
+                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'my ' : currentLang === 'fr' ? 'mon ' : 'mi '}</span>
+                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'academic journey' : currentLang === 'fr' ? 'parcours académique' : 'recorrido académico'}</span>
+              </h2>
+            </div>
+
+            <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light">
+              {education.map((edu, index) => (
+                <div key={index} className="flex gap-5">
+                  <GraduationCap className="text-[#555] shrink-0 mt-1" size={18} />
+                  <div>
+                    <p className="text-white">
+                      {edu.institution} <span className="text-[#666]">— {edu.country[currentLang]}</span>
+                    </p>
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-[#9ec9ff] mt-1">{edu.period}</p>
+                    <p className="mt-1">
+                      {edu.degree[currentLang]}
+                      {edu.note[currentLang] && <span className="text-[#666]"> {edu.note[currentLang]}</span>}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
