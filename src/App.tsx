@@ -488,14 +488,100 @@ export default function App() {
         </motion.div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience" className="py-28 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 md:mb-14">
+            <h2 className="text-4xl md:text-5xl text-white lowercase">
+              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                {currentLang === 'en' ? 'professional ' : currentLang === 'fr' ? 'expériences ' : 'experiencia '}
+              </span>
+              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                {currentLang === 'en' ? 'experience' : currentLang === 'fr' ? 'professionnelles' : 'profesional'}
+              </span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {experiences.map((exp, index) => {
+              const Wrapper = exp.link ? 'a' : 'div';
+              return (
+                <motion.div
+                  key={exp.company}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -6 }}
+                  className="group cursor-pointer"
+                >
+                  <Wrapper {...(exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
+                      {exp.link && (
+                        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                            <ExternalLink size={13} />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
+                        <div className="flex items-start gap-4">
+                          <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                            <img
+                              src={exp.image}
+                              alt={exp.company}
+                              className="w-full h-full object-contain"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+
+                          <div className="space-y-3">
+                            <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
+                              {exp.company}
+                            </h3>
+                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
+                              {exp.role[currentLang]} • {exp.period[currentLang]}
+                            </p>
+                            <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
+                              {exp.description[currentLang]}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
+                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
+                            {currentLang === 'en' ? 'focus areas' : currentLang === 'fr' ? 'domaines' : 'áreas'}
+                          </p>
+                          <ul className="flex flex-wrap gap-2">
+                            {exp.stack[currentLang].map((tag, tagIndex) => (
+                              <li
+                                key={tagIndex}
+                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                              >
+                                {tag}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </Wrapper>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Portfolio Section */}
       <section id="work" className="py-28 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-end mb-16">
             <div>
               <h2 className="text-4xl md:text-5xl text-white lowercase">
-                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'stuff i\'ve ' : currentLang === 'fr' ? 'choses que j\'ai ' : 'cosas que he '}</span>
-                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'built' : currentLang === 'fr' ? 'construites' : 'construido'}</span>
+                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'projects ' : currentLang === 'fr' ? 'projets ' : 'proyectos '}</span>
+                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'built.' : currentLang === 'fr' ? 'construits.' : 'construidos.'}</span>
               </h2>
             </div>
             <a
@@ -594,102 +680,16 @@ export default function App() {
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="py-24 px-6 border-t border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12 md:mb-14">
-            <h2 className="text-4xl md:text-5xl text-white lowercase">
-              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
-                {currentLang === 'en' ? 'professional ' : currentLang === 'fr' ? 'expériences ' : 'experiencia '}
-              </span>
-              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
-                {currentLang === 'en' ? 'experience' : currentLang === 'fr' ? 'professionnelles' : 'profesional'}
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8">
-            {experiences.map((exp, index) => {
-              const Wrapper = exp.link ? 'a' : 'div';
-              return (
-                <motion.div
-                  key={exp.company}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -6 }}
-                  className="group cursor-pointer"
-                >
-                  <Wrapper {...(exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                    <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
-                      {exp.link && (
-                        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
-                            <ExternalLink size={13} />
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
-                        <div className="flex items-start gap-4">
-                          <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
-                            <img
-                              src={exp.image}
-                              alt={exp.company}
-                              className="w-full h-full object-contain"
-                              referrerPolicy="no-referrer"
-                            />
-                          </div>
-
-                          <div className="space-y-3">
-                            <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
-                              {exp.company}
-                            </h3>
-                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
-                              {exp.role[currentLang]} • {exp.period[currentLang]}
-                            </p>
-                            <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
-                              {exp.description[currentLang]}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
-                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
-                            {currentLang === 'en' ? 'focus areas' : currentLang === 'fr' ? 'domaines' : 'áreas'}
-                          </p>
-                          <ul className="flex flex-wrap gap-2">
-                            {exp.stack[currentLang].map((tag, tagIndex) => (
-                              <li
-                                key={tagIndex}
-                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
-                              >
-                                {tag}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </Wrapper>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Research Section */}
       <section className="py-24 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12 md:mb-14">
             <h2 className="text-4xl md:text-5xl text-white lowercase">
               <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
-                {currentLang === 'en' ? 'stuff i\'ve ' : currentLang === 'fr' ? 'choses que j\'ai ' : 'cosas que he '}
+                {currentLang === 'en' ? 'research ' : currentLang === 'fr' ? 'recherches ' : 'investigaciones '}
               </span>
               <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
-                {currentLang === 'en' ? 'researched' : currentLang === 'fr' ? 'explorées' : 'investigado'}
+                {currentLang === 'en' ? 'done.' : currentLang === 'fr' ? 'faites.' : 'hechas.'}
               </span>
             </h2>
             <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[#9a9a9a] leading-relaxed">
