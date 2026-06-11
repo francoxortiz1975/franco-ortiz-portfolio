@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User } from 'lucide-react';
+import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User, HelpCircle } from 'lucide-react';
 
 type Language = 'en' | 'fr' | 'es';
 
@@ -539,15 +539,20 @@ export default function App() {
           {/* Profile photo */}
           <div className="shrink-0 mx-auto md:mx-0">
             <div className="avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full">
-              <div className="w-full h-full rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
-                <img
-                  src="/photo.jpg"
-                  alt="Franco Ortiz"
-                  className="relative z-10 w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                />
-                <User className="absolute text-white/20" size={48} />
+              <div className="avatar-flip relative w-full h-full rounded-full">
+                <div className="avatar-face absolute inset-0 rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
+                  <HelpCircle className="text-white/20" size={48} />
+                </div>
+                <div className="avatar-face avatar-face-back absolute inset-0 rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
+                  <img
+                    src="/photo.jpg"
+                    alt="Franco Ortiz"
+                    className="relative z-10 w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                  <User className="absolute text-white/20" size={48} />
+                </div>
               </div>
             </div>
           </div>

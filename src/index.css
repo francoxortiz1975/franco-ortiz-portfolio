@@ -187,7 +187,28 @@
 .avatar-glow {
   position: relative;
   z-index: 1;
+  perspective: 1200px;
   transition: transform 0.4s;
+}
+
+/* Avatar flip reveal */
+.avatar-flip {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.avatar-glow:hover .avatar-flip,
+.avatar-glow:focus-visible .avatar-flip {
+  transform: rotateY(180deg);
+}
+
+.avatar-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.avatar-face-back {
+  transform: rotateY(180deg);
 }
 
 .avatar-glow:hover {
