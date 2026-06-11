@@ -213,7 +213,7 @@ export default function App() {
         fr: ['Vite', 'React', 'Supabase', 'Git'],
         es: ['Vite', 'React', 'Supabase', 'Git']
       },
-      link: '',
+      link: 'https://www.sumayclub.app/landing',
     },
     {
       title: { en: 'UTM CampusApp', fr: 'UTM CampusApp', es: 'UTM CampusApp' },
@@ -246,9 +246,9 @@ export default function App() {
         es: 'Desarrollador & Data Engineer'
       },
       period: {
-        en: 'May - July 2025',
-        fr: 'Mai - Juillet 2025',
-        es: 'Mayo - Julio 2025'
+        en: 'May 2026 - Present · Part-time',
+        fr: 'Mai 2026 - Présent · Temps partiel',
+        es: 'Mayo 2026 - Presente · Tiempo parcial'
       },
       image: '/medilyft.png',
       description: {
@@ -271,9 +271,9 @@ export default function App() {
         es: 'Asistencia Informática'
       },
       period: {
-        en: 'June 2025 - Present',
-        fr: 'Juin 2025 - Présent',
-        es: 'Junio 2025 - Presente'
+        en: 'June 2026 - Present · Part-time',
+        fr: 'Juin 2026 - Présent · Temps partiel',
+        es: 'Junio 2026 - Presente · Tiempo parcial'
       },
       image: '/campusfrance.png',
       description: {
@@ -538,15 +538,17 @@ export default function App() {
 
           {/* Profile photo */}
           <div className="shrink-0 mx-auto md:mx-0">
-            <div className="avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full border border-white/10 overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
-              <img
-                src="/photo.jpg"
-                alt="Franco Ortiz"
-                className="relative z-10 w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-              <User className="absolute text-white/20" size={48} />
+            <div className="avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full">
+              <div className="w-full h-full rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
+                <img
+                  src="/photo.jpg"
+                  alt="Franco Ortiz"
+                  className="relative z-10 w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+                <User className="absolute text-white/20" size={48} />
+              </div>
             </div>
           </div>
         </motion.div>
