@@ -187,6 +187,11 @@
 .avatar-glow {
   position: relative;
   z-index: 1;
+  transition: transform 0.4s;
+}
+
+.avatar-glow:hover {
+  transform: scale(1.03);
 }
 
 .avatar-glow::before {
@@ -198,9 +203,16 @@
     radial-gradient(circle at 35% 30%, rgb(var(--aura-cyan) / 0.45), transparent 60%),
     radial-gradient(circle at 65% 70%, rgb(var(--aura-blue) / 0.40), transparent 60%),
     radial-gradient(circle at 70% 25%, rgb(var(--aura-red-edge) / 0.18), transparent 55%);
-  filter: blur(26px) saturate(135%);
   z-index: -1;
-  animation: avatar-pulse 5s ease-in-out infinite;
+  opacity: 0;
+  filter: blur(20px) saturate(135%);
+  transition: opacity 0.4s, filter 0.4s;
+}
+
+.avatar-glow:hover::before,
+.avatar-glow:focus-visible::before {
+  opacity: 1;
+  filter: blur(32px) saturate(150%);
 }
 
 .avatar-glow::after {
@@ -208,14 +220,20 @@
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  border: 1px solid rgb(205 220 255 / 0.25);
+  border: 1px solid rgb(150 150 150 / 0.34);
   box-shadow: 0 0 0 1px rgb(255 255 255 / 0.04) inset;
   pointer-events: none;
+  transition: border-color 0.4s, box-shadow 0.4s;
 }
 
-@keyframes avatar-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.06); }
+.avatar-glow:hover::after,
+.avatar-glow:focus-visible::after {
+  border-color: rgb(205 220 255 / 0.45);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08) inset,
+    0 0 38px rgb(var(--aura-blue) / 0.40),
+    0 0 70px rgb(var(--aura-cyan) / 0.28),
+    3px 0 16px rgb(var(--aura-red-edge) / 0.14);
 }
 
 /* Navbar name gradient hover */

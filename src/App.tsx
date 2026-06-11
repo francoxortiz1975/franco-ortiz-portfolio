@@ -552,71 +552,98 @@ export default function App() {
         </motion.div>
       </section>
 
-      {/* Experience Section */}
+      {/* Education + Experience Section */}
       <section id="experience" className="py-28 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 md:mb-14">
-            <h2 className="text-4xl md:text-5xl text-white lowercase">
-              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
-                {currentLang === 'en' ? 'professional ' : currentLang === 'fr' ? 'expériences ' : 'experiencia '}
-              </span>
-              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
-                {currentLang === 'en' ? 'experience' : currentLang === 'fr' ? 'professionnelles' : 'profesional'}
-              </span>
-            </h2>
-          </div>
+          <div className="grid md:grid-cols-[0.3fr_0.7fr] gap-x-12 gap-y-16">
+            {/* Academic Journey Column - 30% */}
+            <div>
+              <div className="mb-10">
+                <h2 className="text-3xl md:text-4xl text-white lowercase">
+                  <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'my ' : currentLang === 'fr' ? 'mon ' : 'mi '}</span>
+                  <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'academic journey' : currentLang === 'fr' ? 'parcours académique' : 'recorrido académico'}</span>
+                </h2>
+              </div>
 
-          <div className="grid grid-cols-1 gap-8">
-            {experiences.map((exp, index) => {
-              const Wrapper = exp.link ? 'a' : 'div';
-              return (
-                <motion.div
-                  key={exp.company}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -6 }}
-                  className="group cursor-pointer"
-                >
-                  <Wrapper {...(exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                    <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
-                      {exp.link && (
-                        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                          <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
-                            <ExternalLink size={13} />
+              <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light">
+                {education.map((edu, index) => (
+                  <div key={index} className="flex gap-4">
+                    <GraduationCap className="text-[#555] shrink-0 mt-1" size={18} />
+                    <div>
+                      <p className="text-white text-[13px] leading-snug">
+                        {edu.institution} <span className="text-[#666]">— {edu.country[currentLang]}</span>
+                      </p>
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff] mt-1.5">{edu.period}</p>
+                      <p className="mt-1.5 text-[12px]">
+                        {edu.degree[currentLang]}
+                        {edu.note[currentLang] && <span className="text-[#666]"> {edu.note[currentLang]}</span>}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Professional Experience Column - 70% */}
+            <div>
+              <div className="mb-10">
+                <h2 className="text-3xl md:text-4xl text-white lowercase">
+                  <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                    {currentLang === 'en' ? 'professional ' : currentLang === 'fr' ? 'expériences ' : 'experiencia '}
+                  </span>
+                  <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                    {currentLang === 'en' ? 'experience' : currentLang === 'fr' ? 'professionnelles' : 'profesional'}
+                  </span>
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                {experiences.map((exp, index) => {
+                  const Wrapper = exp.link ? 'a' : 'div';
+                  return (
+                    <motion.div
+                      key={exp.company}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -6 }}
+                      className="group cursor-pointer"
+                    >
+                      <Wrapper {...(exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                        <div className="flow-edge-card chromatic-edge rounded-2xl p-5 md:p-6 relative transition-all duration-500">
+                          {exp.link && (
+                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                              <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                                <ExternalLink size={13} />
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="flex items-start gap-4 mb-4">
+                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                              <img
+                                src={exp.image}
+                                alt={exp.company}
+                                className="w-full h-full object-contain"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <h3 className="font-sans text-base md:text-lg font-medium text-white leading-tight">
+                                {exp.company}
+                              </h3>
+                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
+                                {exp.role[currentLang]} • {exp.period[currentLang]}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      )}
 
-                      <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
-                        <div className="flex items-start gap-4">
-                          <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
-                            <img
-                              src={exp.image}
-                              alt={exp.company}
-                              className="w-full h-full object-contain"
-                              referrerPolicy="no-referrer"
-                            />
-                          </div>
-
-                          <div className="space-y-3">
-                            <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
-                              {exp.company}
-                            </h3>
-                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
-                              {exp.role[currentLang]} • {exp.period[currentLang]}
-                            </p>
-                            <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
-                              {exp.description[currentLang]}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
-                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
-                            {currentLang === 'en' ? 'focus areas' : currentLang === 'fr' ? 'domaines' : 'áreas'}
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
+                            {exp.description[currentLang]}
                           </p>
+
                           <ul className="flex flex-wrap gap-2">
                             {exp.stack[currentLang].map((tag, tagIndex) => (
                               <li
@@ -628,12 +655,12 @@ export default function App() {
                             ))}
                           </ul>
                         </div>
-                      </div>
-                    </div>
-                  </Wrapper>
-                </motion.div>
-              );
-            })}
+                      </Wrapper>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -644,7 +671,7 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-20">
             {/* Projects Column */}
             <div>
-              <div className="flex justify-between items-end mb-10">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-5 mb-10">
                 <h2 className="text-3xl md:text-4xl text-white lowercase">
                   <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'projects ' : currentLang === 'fr' ? 'projets ' : 'proyectos '}</span>
                   <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'built.' : currentLang === 'fr' ? 'construits.' : 'construidos.'}</span>
@@ -653,7 +680,7 @@ export default function App() {
                   href="https://github.com/francoxortiz1975"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden md:flex items-center space-x-2 font-[family-name:var(--font-mono)] text-[11px] text-[#666] hover:text-white transition-colors lowercase shrink-0"
+                  className="btn-aura inline-flex items-center space-x-2 text-white px-5 py-2.5 rounded-full font-[family-name:var(--font-mono)] text-[11px] lowercase tracking-wide transition-all w-fit shrink-0"
                 >
                   <span>{t.work.more}</span>
                   <Github size={14} />
@@ -942,43 +969,6 @@ export default function App() {
                   {t.about.p5}
                 </span>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Education Section */}
-      <section id="education" className="py-28 px-6 border-t border-white/5">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="space-y-12"
-          >
-            <div>
-              <h2 className="text-4xl md:text-5xl text-white lowercase">
-                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'my ' : currentLang === 'fr' ? 'mon ' : 'mi '}</span>
-                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'academic journey' : currentLang === 'fr' ? 'parcours académique' : 'recorrido académico'}</span>
-              </h2>
-            </div>
-
-            <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light">
-              {education.map((edu, index) => (
-                <div key={index} className="flex gap-5">
-                  <GraduationCap className="text-[#555] shrink-0 mt-1" size={18} />
-                  <div>
-                    <p className="text-white">
-                      {edu.institution} <span className="text-[#666]">— {edu.country[currentLang]}</span>
-                    </p>
-                    <p className="text-[11px] uppercase tracking-[0.16em] text-[#9ec9ff] mt-1">{edu.period}</p>
-                    <p className="mt-1">
-                      {edu.degree[currentLang]}
-                      {edu.note[currentLang] && <span className="text-[#666]"> {edu.note[currentLang]}</span>}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
           </motion.div>
         </div>
