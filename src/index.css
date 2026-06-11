@@ -183,6 +183,41 @@
   backdrop-filter: blur(10px) saturate(118%);
 }
 
+/* Avatar glow ring */
+.avatar-glow {
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-glow::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 35% 30%, rgb(var(--aura-cyan) / 0.45), transparent 60%),
+    radial-gradient(circle at 65% 70%, rgb(var(--aura-blue) / 0.40), transparent 60%),
+    radial-gradient(circle at 70% 25%, rgb(var(--aura-red-edge) / 0.18), transparent 55%);
+  filter: blur(26px) saturate(135%);
+  z-index: -1;
+  animation: avatar-pulse 5s ease-in-out infinite;
+}
+
+.avatar-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid rgb(205 220 255 / 0.25);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.04) inset;
+  pointer-events: none;
+}
+
+@keyframes avatar-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
 /* Navbar name gradient hover */
 .nav-name {
   position: relative;

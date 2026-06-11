@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap } from 'lucide-react';
+import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User } from 'lucide-react';
 
 type Language = 'en' | 'fr' | 'es';
 
@@ -491,47 +491,63 @@ export default function App() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-10"
+          className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-12 md:gap-10"
         >
-          <div>
-            <h1 className="text-5xl md:text-8xl text-white leading-[1.1] mb-2">
-              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
-                {currentLang === 'es' ? '¡hola, ' : 'hola, '}
-              </span>  
-              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
-                {currentLang === 'en' ? 'hello there!' : currentLang === 'fr' ? 'bonjour !' : 'qué tal!'}
-              </span>
-            </h1>
+          <div className="space-y-10">
+            <div>
+              <h1 className="text-5xl md:text-8xl text-white leading-[1.1] mb-2">
+                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                  {currentLang === 'es' ? '¡hola, ' : 'hola, '}
+                </span>
+                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                  {currentLang === 'en' ? 'hello there!' : currentLang === 'fr' ? 'bonjour !' : 'qué tal!'}
+                </span>
+              </h1>
+            </div>
+
+            <div className="max-w-2xl space-y-8">
+              <p className="font-[family-name:var(--font-mono)] text-sm md:text-base text-[#888] leading-[1.8] font-light">
+                {t.hero.description}
+              </p>
+              {t.hero.stats.length > 0 && (
+                <div className="flex flex-wrap gap-x-6 gap-y-3 font-[family-name:var(--font-mono)] text-[11px] text-[#666]">
+                  {t.hero.stats.map((stat, i) => (
+                    <React.Fragment key={i}>
+                      <span className="flex items-center gap-2 lowercase">
+                        <div className="w-1 h-1 bg-white/30 rounded-full" />
+                        {stat}
+                      </span>
+                    </React.Fragment>
+                  ))}
+                </div>
+              )}
+              <button
+                onClick={() => scrollToSection('work')}
+                className="btn-aura group flex items-center space-x-4 text-white px-8 py-4 rounded-full font-[family-name:var(--font-mono)] text-[11px] lowercase tracking-wide transition-all"
+              >
+                <span>{t.hero.button}</span>
+                <motion.div
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                >
+                  <Rocket size={14} />
+                </motion.div>
+              </button>
+            </div>
           </div>
 
-          <div className="max-w-2xl space-y-8">
-            <p className="font-[family-name:var(--font-mono)] text-sm md:text-base text-[#888] leading-[1.8] font-light">
-              {t.hero.description}
-            </p>
-            {t.hero.stats.length > 0 && (
-              <div className="flex flex-wrap gap-x-6 gap-y-3 font-[family-name:var(--font-mono)] text-[11px] text-[#666]">
-                {t.hero.stats.map((stat, i) => (
-                  <React.Fragment key={i}>
-                    <span className="flex items-center gap-2 lowercase">
-                      <div className="w-1 h-1 bg-white/30 rounded-full" />
-                      {stat}
-                    </span>
-                  </React.Fragment>
-                ))}
-              </div>
-            )}
-            <button
-              onClick={() => scrollToSection('work')}
-              className="btn-aura group flex items-center space-x-4 text-white px-8 py-4 rounded-full font-[family-name:var(--font-mono)] text-[11px] lowercase tracking-wide transition-all"
-            >
-              <span>{t.hero.button}</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5 }}
-              >
-                <Rocket size={14} />
-              </motion.div>
-            </button>
+          {/* Profile photo */}
+          <div className="shrink-0 mx-auto md:mx-0">
+            <div className="avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full border border-white/10 overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
+              <img
+                src="/photo.jpg"
+                alt="Franco Ortiz"
+                className="relative z-10 w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+              <User className="absolute text-white/20" size={48} />
+            </div>
           </div>
         </motion.div>
       </section>
@@ -622,181 +638,170 @@ export default function App() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
+      {/* Portfolio + Research Section */}
       <section id="work" className="py-28 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-end mb-16">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-20">
+            {/* Projects Column */}
             <div>
-              <h2 className="text-4xl md:text-5xl text-white lowercase">
-                <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'projects ' : currentLang === 'fr' ? 'projets ' : 'proyectos '}</span>
-                <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'built.' : currentLang === 'fr' ? 'construits.' : 'construidos.'}</span>
-              </h2>
-            </div>
-            <a
-              href="https://github.com/francoxortiz1975"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex items-center space-x-2 font-[family-name:var(--font-mono)] text-[11px] text-[#666] hover:text-white transition-colors lowercase"
-            >
-              <span>{t.work.more}</span>
-              <Github size={14} />
-            </a>
-          </div>
+              <div className="flex justify-between items-end mb-10">
+                <h2 className="text-3xl md:text-4xl text-white lowercase">
+                  <span className="font-[family-name:var(--font-sans)] text-[0.85em]">{currentLang === 'en' ? 'projects ' : currentLang === 'fr' ? 'projets ' : 'proyectos '}</span>
+                  <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'built.' : currentLang === 'fr' ? 'construits.' : 'construidos.'}</span>
+                </h2>
+                <a
+                  href="https://github.com/francoxortiz1975"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden md:flex items-center space-x-2 font-[family-name:var(--font-mono)] text-[11px] text-[#666] hover:text-white transition-colors lowercase shrink-0"
+                >
+                  <span>{t.work.more}</span>
+                  <Github size={14} />
+                </a>
+              </div>
 
-          <div className="grid grid-cols-1 gap-8">
-            {projects.map((project, index) => {
-              const Wrapper = project.link ? 'a' : 'div';
-              return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -6 }}
-                className="group cursor-pointer"
-              >
-                <Wrapper {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                  <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
-                    {project.link && (
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
-                        <ExternalLink size={13} />
-                      </div>
-                    </div>
-                    )}
-
-                    <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
-                      <div className="flex items-start gap-4">
-                        <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
-                          {project.image ? (
-                            <img
-                              src={project.image}
-                              alt={project.title[currentLang]}
-                              className="w-full h-full object-cover"
-                              referrerPolicy="no-referrer"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[11px] tracking-wide">
-                              UTM
+              <div className="grid grid-cols-1 gap-6">
+                {projects.map((project, index) => {
+                  const Wrapper = project.link ? 'a' : 'div';
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -6 }}
+                      className="group cursor-pointer"
+                    >
+                      <Wrapper {...(project.link ? { href: project.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                        <div className="flow-edge-card chromatic-edge rounded-2xl p-5 md:p-6 relative transition-all duration-500">
+                          {project.link && (
+                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                              <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                                <ExternalLink size={13} />
+                              </div>
                             </div>
                           )}
-                        </div>
 
-                        <div className="space-y-3">
-                          <h3 className="font-sans text-lg md:text-xl font-medium text-white lowercase leading-tight">
-                            {project.title[currentLang]}
-                          </h3>
-                          <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
-                            {project.category[currentLang]}
-                          </p>
-                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
+                          <div className="flex items-start gap-4 mb-4">
+                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                              {project.image ? (
+                                <img
+                                  src={project.image}
+                                  alt={project.title[currentLang]}
+                                  className="w-full h-full object-cover"
+                                  referrerPolicy="no-referrer"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[10px] tracking-wide">
+                                  UTM
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <h3 className="font-sans text-base md:text-lg font-medium text-white lowercase leading-tight">
+                                {project.title[currentLang]}
+                              </h3>
+                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                                {project.category[currentLang]}
+                              </p>
+                            </div>
+                          </div>
+
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
                             {project.description[currentLang]}
                           </p>
+
+                          <ul className="flex flex-wrap gap-2">
+                            {project.stack[currentLang].map((tech, techIndex) => (
+                              <li
+                                key={techIndex}
+                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                              >
+                                {tech}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                      </div>
+                      </Wrapper>
+                    </motion.div>
+                  );
+                })}
+              </div>
 
-                      <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
-                        <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
-                          technical stack
-                        </p>
-                        <ul className="flex flex-wrap gap-2">
-                          {project.stack[currentLang].map((tech, techIndex) => (
-                            <li
-                              key={techIndex}
-                              className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
-                            >
-                              {tech}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </Wrapper>
-              </motion.div>
-              );
-            })}
-          </div>
+              <div className="mt-8 md:hidden flex justify-center">
+                <a
+                  href="https://github.com/francoxortiz1975"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-aura flex items-center space-x-2 font-[family-name:var(--font-mono)] text-[11px] px-6 py-3 rounded-full text-white lowercase"
+                >
+                  <span>{t.work.more}</span>
+                  <Github size={14} />
+                </a>
+              </div>
+            </div>
 
-          <div className="mt-12 md:hidden flex justify-center">
-            <a
-              href="https://github.com/francoxortiz1975"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-aura flex items-center space-x-2 font-[family-name:var(--font-mono)] text-[11px] px-6 py-3 rounded-full text-white lowercase"
-            >
-              <span>{t.work.more}</span>
-              <Github size={14} />
-            </a>
-          </div>
-        </div>
-      </section>
+            {/* Research Column */}
+            <div>
+              <div className="mb-10">
+                <h2 className="text-3xl md:text-4xl text-white lowercase">
+                  <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                    {currentLang === 'en' ? 'research ' : currentLang === 'fr' ? 'recherches ' : 'investigaciones '}
+                  </span>
+                  <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                    {currentLang === 'en' ? 'done.' : currentLang === 'fr' ? 'faites.' : 'hechas.'}
+                  </span>
+                </h2>
+                <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[#9a9a9a] leading-relaxed">
+                  {t.research.subtitle}
+                </p>
+              </div>
 
-      {/* Research Section */}
-      <section className="py-24 px-6 border-t border-white/5">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-12 md:mb-14">
-            <h2 className="text-4xl md:text-5xl text-white lowercase">
-              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
-                {currentLang === 'en' ? 'research ' : currentLang === 'fr' ? 'recherches ' : 'investigaciones '}
-              </span>
-              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
-                {currentLang === 'en' ? 'done.' : currentLang === 'fr' ? 'faites.' : 'hechas.'}
-              </span>
-            </h2>
-            <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[#9a9a9a] leading-relaxed">
-              {t.research.subtitle}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8">
-            {researchPapers.map((paper, index) => (
-              <motion.div
-                key={paper.title.en}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="group cursor-pointer"
-              >
-                <a href={paper.link} target="_blank" rel="noopener noreferrer">
-                  <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
-                        <ExternalLink size={13} />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
-                      <div className="flex items-start gap-4">
-                        <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
-                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[11px] tracking-wide">
-                            R&D
+              <div className="grid grid-cols-1 gap-6">
+                {researchPapers.map((paper, index) => (
+                  <motion.div
+                    key={paper.title.en}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.08 }}
+                    whileHover={{ y: -6 }}
+                    className="group cursor-pointer"
+                  >
+                    <a href={paper.link} target="_blank" rel="noopener noreferrer">
+                      <div className="flow-edge-card chromatic-edge rounded-2xl p-5 md:p-6 relative transition-all duration-500">
+                        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                            <ExternalLink size={13} />
                           </div>
                         </div>
 
-                        <div className="space-y-3">
-                          <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
-                            {paper.title[currentLang]}
-                          </h3>
-                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff]">
-                            {paper.accepted[currentLang]}
-                          </p>
-                          <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
-                            {paper.category[currentLang]}
-                          </p>
-                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
-                            {paper.description[currentLang]}
-                          </p>
-                        </div>
-                      </div>
+                        <div className="flex items-start gap-4 mb-4">
+                          <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[10px] tracking-wide">
+                              R&D
+                            </div>
+                          </div>
 
-                      <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
-                        <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
-                          {t.research.focus}
+                          <div className="space-y-1.5">
+                            <h3 className="font-sans text-base md:text-lg font-medium text-white leading-tight">
+                              {paper.title[currentLang]}
+                            </h3>
+                            <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff]">
+                              {paper.accepted[currentLang]}
+                            </p>
+                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                              {paper.category[currentLang]}
+                            </p>
+                          </div>
+                        </div>
+
+                        <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
+                          {paper.description[currentLang]}
                         </p>
+
                         <ul className="flex flex-wrap gap-2">
                           {paper.stack[currentLang].map((topicTag, tagIndex) => (
                             <li
@@ -808,11 +813,11 @@ export default function App() {
                           ))}
                         </ul>
                       </div>
-                    </div>
-                  </div>
-                </a>
-              </motion.div>
-            ))}
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
