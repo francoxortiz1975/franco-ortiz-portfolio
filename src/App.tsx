@@ -14,13 +14,14 @@ const translations = {
     nav: {
       home: 'Home',
       work: 'My Work',
+      experience: 'Experience',
       contact: 'Say Hi',
       about: 'About Me',
     },
     hero: {
       role: 'ABOUT ME',
       title: "Hola, hello there!",
-      description: " I'm a… well I… err… I suppose software engineer is the right word. That sounds a little pretentious, though, doesn't it? I like to build things, and I've been doing that for a while. That seems fair.",
+      description: "Master's student in Information Systems Management (MIAGE) at Paris Dauphine, 2026-2028, in apprenticeship with \"LOADING\"...",
       stats: [
       ],
       button: 'Take a look at my work'
@@ -66,13 +67,14 @@ const translations = {
     nav: {
       home: 'Accueil',
       work: 'Mes Projets',
+      experience: 'Expérience',
       contact: 'Dis Bonjour',
       about: 'À Propos',
     },
     hero: {
       role: 'À PROPOS',
       title: "Eh bien, bonjour !",
-      description: "Je suis un… enfin je… euh… je suppose qu'ingénieur informaticien est le bon mot. Ça sonne un peu prétentieux, non ? J'aime construire des choses, et je fais ça depuis un moment. ",
+      description: "Étudiant en Master Informatique pour le Management des Entreprises (MIAGE) à Paris Dauphine, 2026-2028, en alternance avec \"LOADING\"...",
       stats: [
       ],
       button: 'Jeter un œil à mon travail'
@@ -119,13 +121,14 @@ const translations = {
     nav: {
       home: 'Inicio',
       work: 'Mis Proyectos',
+      experience: 'Experiencia',
       contact: 'Saluda',
       about: 'Sobre Mí',
     },
     hero: {
       role: 'SOBRE MÍ',
       title: "Hola, ¡qué tal!",
-      description: "Soy un… bueno yo… eeh… supongo que ingeniero de software es la palabra correcta. Suena un poco pretencioso, ¿no? En realidad, me gusta construir cosas y llevo un buen rato haciéndolo.",
+      description: "Estudiante de Máster en Informática para la Gestión de Empresas (MIAGE) en Paris Dauphine, 2026-2028, en alternancia con \"LOADING\"...",
       stats: [
       ],
       button: 'Echa un vistazo a mi trabajo'
@@ -234,6 +237,59 @@ export default function App() {
     },
   ];
 
+  const experiences = [
+    {
+      company: 'MEDILYFT',
+      role: {
+        en: 'Developer & Data Engineer',
+        fr: 'Développeur & Data Engineer',
+        es: 'Desarrollador & Data Engineer'
+      },
+      period: {
+        en: 'May - July 2025',
+        fr: 'Mai - Juillet 2025',
+        es: 'Mayo - Julio 2025'
+      },
+      image: '/medilyft.png',
+      description: {
+        en: 'Collaborated on building a medical platform and a medical chatbot featuring health monitoring and pre-diagnosis. Designed the infrastructure, managed databases, handled web deployment, and integrated the Meta API for a modern business model.',
+        fr: 'Collaboration à la création d\'une plateforme médicale et d\'un chatbot médical avec suivi de santé et pré-diagnostic. Conception de l\'infrastructure, gestion des bases de données, déploiement web et intégration de l\'API Meta pour un modèle d\'affaires moderne.',
+        es: 'Colaboré en la creación de una plataforma médica y un chatbot médico con seguimiento de salud y prediagnóstico. Diseño de infraestructura, gestión de bases de datos, despliegue web e integración de la API de Meta para un modelo de negocio moderno.'
+      },
+      stack: {
+        en: ['Database Design', 'Web Deployment', 'Meta API', 'Healthcare Chatbot', 'Infrastructure'],
+        fr: ['Conception BDD', 'Déploiement Web', 'API Meta', 'Chatbot Santé', 'Infrastructure'],
+        es: ['Diseño de BD', 'Despliegue Web', 'API de Meta', 'Chatbot de Salud', 'Infraestructura']
+      },
+      link: 'https://www.medilyft.app/landing/index.html',
+    },
+    {
+      company: 'Campus France Équateur',
+      role: {
+        en: 'IT Support',
+        fr: 'Assistance Informatique',
+        es: 'Asistencia Informática'
+      },
+      period: {
+        en: 'June 2025 - Present',
+        fr: 'Juin 2025 - Présent',
+        es: 'Junio 2025 - Presente'
+      },
+      image: '/campusfrance.png',
+      description: {
+        en: 'IT support for the Director of Campus France Ecuador: maintaining network connectivity, institutional platforms, and email systems across all devices, ensuring smooth daily operations and ongoing technical assistance.',
+        fr: 'Assistance informatique pour la directrice de Campus France Équateur : maintenance du réseau, des plateformes et de la messagerie institutionnelle sur l\'ensemble de ses appareils, garantissant la continuité opérationnelle et un support technique permanent.',
+        es: 'Asistencia informática para la directora de Campus France Ecuador: mantenimiento de la red, las plataformas y el correo institucional en todos sus dispositivos, garantizando la continuidad operativa y un soporte técnico permanente.'
+      },
+      stack: {
+        en: ['IT Support', 'Network', 'Email Platforms', 'Device Management'],
+        fr: ['Assistance Informatique', 'Réseau', 'Plateformes Mail', 'Gestion d\'Appareils'],
+        es: ['Soporte Informático', 'Red', 'Plataformas de Correo', 'Gestión de Dispositivos']
+      },
+      link: '',
+    },
+  ];
+
   const researchPapers = [
     {
       title: {
@@ -296,6 +352,7 @@ export default function App() {
           <div className="hidden md:flex items-center space-x-8 font-[family-name:var(--font-mono)] text-[11px] tracking-wide text-[#888]">
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors lowercase">{t.nav.home}</button>
             <button onClick={() => scrollToSection('work')} className="hover:text-white transition-colors lowercase">{t.nav.work}</button>
+            <button onClick={() => scrollToSection('experience')} className="hover:text-white transition-colors lowercase">{t.nav.experience}</button>
             <button onClick={() => scrollToSection('contact')} className="hover:text-white transition-colors lowercase">{t.nav.contact}</button>
             <button onClick={() => scrollToSection('about')} className="hover:text-white transition-colors lowercase">{t.nav.about}</button>
 
@@ -368,6 +425,7 @@ export default function App() {
           >
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white">{t.nav.home}</button>
             <button onClick={() => scrollToSection('work')} className="hover:text-white">{t.nav.work}</button>
+            <button onClick={() => scrollToSection('experience')} className="hover:text-white">{t.nav.experience}</button>
             <button onClick={() => scrollToSection('contact')} className="hover:text-white">{t.nav.contact}</button>
             <button onClick={() => scrollToSection('about')} className="hover:text-white">{t.nav.about}</button>
             <div className="flex justify-center pt-4">
@@ -532,6 +590,92 @@ export default function App() {
               <span>{t.work.more}</span>
               <Github size={14} />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-24 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-12 md:mb-14">
+            <h2 className="text-4xl md:text-5xl text-white lowercase">
+              <span className="font-[family-name:var(--font-sans)] text-[0.85em]">
+                {currentLang === 'en' ? 'professional ' : currentLang === 'fr' ? 'expériences ' : 'experiencia '}
+              </span>
+              <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">
+                {currentLang === 'en' ? 'experience' : currentLang === 'fr' ? 'professionnelles' : 'profesional'}
+              </span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8">
+            {experiences.map((exp, index) => {
+              const Wrapper = exp.link ? 'a' : 'div';
+              return (
+                <motion.div
+                  key={exp.company}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -6 }}
+                  className="group cursor-pointer"
+                >
+                  <Wrapper {...(exp.link ? { href: exp.link, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    <div className="flow-edge-card chromatic-edge rounded-2xl p-6 md:p-7 relative transition-all duration-500">
+                      {exp.link && (
+                        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <div className="bg-white/10 backdrop-blur-sm text-white p-2 rounded-full">
+                            <ExternalLink size={13} />
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="grid md:grid-cols-[1.45fr_0.55fr] gap-5 md:gap-6 items-start">
+                        <div className="flex items-start gap-4">
+                          <div className="shrink-0 w-14 h-14 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                            <img
+                              src={exp.image}
+                              alt={exp.company}
+                              className="w-full h-full object-contain"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+
+                          <div className="space-y-3">
+                            <h3 className="font-sans text-lg md:text-xl font-medium text-white leading-tight">
+                              {exp.company}
+                            </h3>
+                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
+                              {exp.role[currentLang]} • {exp.period[currentLang]}
+                            </p>
+                            <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed">
+                              {exp.description[currentLang]}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="md:pl-1 md:justify-self-end md:max-w-[240px]">
+                          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-white/45 mb-2.5">
+                            {currentLang === 'en' ? 'focus areas' : currentLang === 'fr' ? 'domaines' : 'áreas'}
+                          </p>
+                          <ul className="flex flex-wrap gap-2">
+                            {exp.stack[currentLang].map((tag, tagIndex) => (
+                              <li
+                                key={tagIndex}
+                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                              >
+                                {tag}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </Wrapper>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
