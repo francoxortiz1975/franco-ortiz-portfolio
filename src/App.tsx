@@ -222,7 +222,7 @@ export default function App() {
         fr: 'Projet académique en groupe • Hub de services campus',
         es: 'Proyecto académico grupal • Hub de servicios del campus'
       },
-      image: '',
+      image: '/utm.png',
       description: {
         en: 'A full-stack campus web app for UTM with food and gym availability, event calendar, interactive map, and a lost-and-found board.',
         fr: 'Une web app full-stack pour UTM avec disponibilité food/gym, calendrier d\'événements, carte interactive et module objets trouvés.',
@@ -233,7 +233,7 @@ export default function App() {
         fr: ['Next.js', 'TypeScript', 'Flask', 'SQLite', 'YOLOv8', 'OpenCV'],
         es: ['Next.js', 'TypeScript', 'Flask', 'SQLite', 'YOLOv8', 'OpenCV']
       },
-      link: 'https://github.com/HalfSchoolEdition/CSC301-Group-Project/',
+      link: 'https://github.com/francoxortiz1975/UTM_CampusApp',
     },
   ];
 
@@ -734,7 +734,7 @@ export default function App() {
                             </div>
 
                             <div className="space-y-1.5">
-                              <h3 className="font-sans text-base md:text-lg font-medium text-white lowercase leading-tight">
+                              <h3 className="font-sans text-base md:text-lg font-medium text-white capitalize leading-tight">
                                 {project.title[currentLang]}
                               </h3>
                               <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
