@@ -22,6 +22,71 @@
   --aura-blue: 64 111 255;
   --aura-violet: 143 92 255;
   --aura-red-edge: 255 84 120;
+
+  /* Theme tokens (dark = default) */
+  --bg-page: #050505;
+  --bg-surface: #0a0a0a;
+  --bg-surface-2: #0f0f0f;
+  --bg-panel: #111111;
+  --bg-dropdown: #141414;
+
+  --text-primary: #e8e8e8;
+  --text-muted-1: #888888;
+  --text-muted-2: #666666;
+  --text-muted-3: #555555;
+  --text-role: #9a9a9a;
+  --text-card-body: #b4b4b4;
+  --text-tag: #d2d2d2;
+  --accent-blue: #9ec9ff;
+}
+
+/* Light theme overrides */
+.aura-stage[data-theme="light"] {
+  --color-white: #17140f;
+
+  --bg-page: #f6f4ef;
+  --bg-surface: #ffffff;
+  --bg-surface-2: #ece9e2;
+  --bg-panel: #efece5;
+  --bg-dropdown: #ffffff;
+
+  --text-primary: #17140f;
+  --text-muted-1: #5c584f;
+  --text-muted-2: #78736a;
+  --text-muted-3: #8f8a80;
+  --text-role: #6e6a61;
+  --text-card-body: #46423a;
+  --text-tag: #302d27;
+  --accent-blue: #2f66c9;
+}
+
+.aura-stage[data-theme="light"] .btn-aura {
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.03) inset;
+}
+
+.aura-stage[data-theme="light"] .btn-aura::after {
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.98), rgb(244 242 236 / 0.95));
+}
+
+.aura-stage[data-theme="light"] .flow-edge-card {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.98), rgb(246 244 238 / 0.95)) padding-box,
+    linear-gradient(120deg, transparent, transparent) border-box;
+}
+
+.aura-stage[data-theme="light"] .group:hover .flow-edge-card,
+.aura-stage[data-theme="light"] .group:active .flow-edge-card,
+.aura-stage[data-theme="light"] .group:focus-within .flow-edge-card {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.98), rgb(246 244 238 / 0.95)) padding-box,
+    linear-gradient(
+      118deg,
+      rgb(var(--aura-cyan) / 0.52),
+      rgb(var(--aura-blue) / 0.54),
+      rgb(var(--aura-violet) / 0.32),
+      rgb(var(--aura-red-edge) / 0.22)
+    ) border-box;
 }
 
 /* Page-level ambient glow */
@@ -187,28 +252,7 @@
 .avatar-glow {
   position: relative;
   z-index: 1;
-  perspective: 1200px;
   transition: transform 0.4s;
-}
-
-/* Avatar flip reveal */
-.avatar-flip {
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-}
-
-.avatar-glow:hover .avatar-flip,
-.avatar-glow:focus-visible .avatar-flip {
-  transform: rotateY(180deg);
-}
-
-.avatar-face {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.avatar-face-back {
-  transform: rotateY(180deg);
 }
 
 .avatar-glow:hover {
@@ -230,6 +274,7 @@
   transition: opacity 0.4s, filter 0.4s;
 }
 
+.avatar-glow.avatar-glow-active::before,
 .avatar-glow:hover::before,
 .avatar-glow:focus-visible::before {
   opacity: 1;
@@ -247,6 +292,7 @@
   transition: border-color 0.4s, box-shadow 0.4s;
 }
 
+.avatar-glow.avatar-glow-active::after,
 .avatar-glow:hover::after,
 .avatar-glow:focus-visible::after {
   border-color: rgb(205 220 255 / 0.45);

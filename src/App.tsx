@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User, HelpCircle } from 'lucide-react';
+import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User, Sun, Moon } from 'lucide-react';
+
+type Theme = 'dark' | 'light';
 
 type Language = 'en' | 'fr' | 'es';
 
@@ -177,6 +179,28 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState<Language>('fr');
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    return (localStorage.getItem('theme') as Theme) || 'dark';
+  });
+  const [avatarGlowActive, setAvatarGlowActive] = useState(false);
+  const avatarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const el = avatarRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      setAvatarGlowActive(visibleHeight > rect.height * 0.3);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const t = translations[currentLang];
 
@@ -365,7 +389,7 @@ export default function App() {
         fr: ['LLMs', 'Personnalisation', 'CS Education', 'Retention'],
         es: ['LLMs', 'Personalizacion', 'CS Education', 'Retencion']
       },
-      link: 'https://arxiv.org/html/2604.27433'
+      link: 'https://dl.acm.org/doi/10.1145/3803400.3809330'
     },
   ];
 
@@ -384,9 +408,9 @@ export default function App() {
   ];
 
   return (
-    <div className="aura-stage relative min-h-screen overflow-x-clip bg-[#050505] text-[#e8e8e8] font-sans selection:bg-white/20 selection:text-white">
+    <div data-theme={theme} className="aura-stage relative min-h-screen overflow-x-clip bg-[var(--bg-page)] text-[var(--text-primary)] font-sans selection:bg-white/20 selection:text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-[#0a0a0a]/90 backdrop-blur-md z-50 nav-gradient-line">
+      <nav className="fixed top-0 w-full bg-[var(--bg-surface)]/90 backdrop-blur-md z-50 nav-gradient-line">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div
             className="text-base font-[family-name:var(--font-sans)] cursor-pointer text-white tracking-widest font-normal nav-name transition-all duration-300"
@@ -397,7 +421,7 @@ export default function App() {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8 font-[family-name:var(--font-mono)] text-[11px] tracking-wide text-[#888]">
+          <div className="hidden md:flex items-center space-x-8 font-[family-name:var(--font-mono)] text-[11px] tracking-wide text-[var(--text-muted-1)]">
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors lowercase">{t.nav.home}</button>
             <button onClick={() => scrollToSection('work')} className="hover:text-white transition-colors lowercase">{t.nav.work}</button>
             <button onClick={() => scrollToSection('experience')} className="hover:text-white transition-colors lowercase">{t.nav.experience}</button>
@@ -420,7 +444,7 @@ export default function App() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-4 bg-[#141414] border border-white/10 rounded-lg shadow-2xl overflow-hidden min-w-[140px]"
+                    className="absolute right-0 mt-4 bg-[var(--bg-dropdown)] border border-white/10 rounded-lg shadow-2xl overflow-hidden min-w-[140px]"
                   >
                     {languages.map((lang) => (
                       <button
@@ -429,7 +453,7 @@ export default function App() {
                           setCurrentLang(lang.code as Language);
                           setIsLangOpen(false);
                         }}
-                        className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-white/5 transition-colors font-[family-name:var(--font-mono)] text-[11px] ${currentLang === lang.code ? 'bg-white/5 text-white' : 'text-[#888]'}`}
+                        className={`w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-white/5 transition-colors font-[family-name:var(--font-mono)] text-[11px] ${currentLang === lang.code ? 'bg-white/5 text-white' : 'text-[var(--text-muted-1)]'}`}
                       >
                         <span>{lang.flag}</span>
                         <span>{lang.label}</span>
@@ -440,11 +464,19 @@ export default function App() {
               </AnimatePresence>
             </div>
 
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 text-[var(--text-muted-1)] hover:text-white transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
             <a
               href="https://www.linkedin.com/in/francoxortiz"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-[#888] hover:text-white transition-colors"
+              className="p-2 text-[var(--text-muted-1)] hover:text-white transition-colors"
             >
               <Linkedin size={16} />
             </a>
@@ -452,6 +484,13 @@ export default function App() {
 
           {/* Mobile Menu Toggle */}
           <div className="flex items-center space-x-4 md:hidden">
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="text-[var(--text-muted-1)] hover:text-white transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <button
               onClick={() => setCurrentLang(currentLang === 'en' ? 'fr' : currentLang === 'fr' ? 'es' : 'en')}
               className="text-xl"
@@ -469,7 +508,7 @@ export default function App() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden absolute top-16 left-0 w-full bg-[#0a0a0a] border-b border-white/10 p-6 flex flex-col space-y-4 text-center font-[family-name:var(--font-mono)] text-[11px] text-[#888] lowercase"
+            className="md:hidden absolute top-16 left-0 w-full bg-[var(--bg-surface)] border-b border-white/10 p-6 flex flex-col space-y-4 text-center font-[family-name:var(--font-mono)] text-[11px] text-[var(--text-muted-1)] lowercase"
           >
             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white">{t.nav.home}</button>
             <button onClick={() => scrollToSection('work')} className="hover:text-white">{t.nav.work}</button>
@@ -478,7 +517,7 @@ export default function App() {
             <button onClick={() => scrollToSection('about')} className="hover:text-white">{t.nav.about}</button>
             <div className="flex justify-center pt-4">
               <a href="https://www.linkedin.com/in/francoxortiz" target="_blank" rel="noopener noreferrer">
-                <Linkedin size={20} className="text-[#888] hover:text-white" />
+                <Linkedin size={20} className="text-[var(--text-muted-1)] hover:text-white" />
               </a>
             </div>
           </motion.div>
@@ -506,11 +545,11 @@ export default function App() {
             </div>
 
             <div className="max-w-2xl space-y-8">
-              <p className="font-[family-name:var(--font-mono)] text-sm md:text-base text-[#888] leading-[1.8] font-light">
+              <p className="font-[family-name:var(--font-mono)] text-sm md:text-base text-[var(--text-muted-1)] leading-[1.8] font-light">
                 {t.hero.description}
               </p>
               {t.hero.stats.length > 0 && (
-                <div className="flex flex-wrap gap-x-6 gap-y-3 font-[family-name:var(--font-mono)] text-[11px] text-[#666]">
+                <div className="flex flex-wrap gap-x-6 gap-y-3 font-[family-name:var(--font-mono)] text-[11px] text-[var(--text-muted-2)]">
                   {t.hero.stats.map((stat, i) => (
                     <React.Fragment key={i}>
                       <span className="flex items-center gap-2 lowercase">
@@ -538,21 +577,19 @@ export default function App() {
 
           {/* Profile photo */}
           <div className="shrink-0 mx-auto md:mx-0">
-            <div className="avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full">
-              <div className="avatar-flip relative w-full h-full rounded-full">
-                <div className="avatar-face absolute inset-0 rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
-                  <HelpCircle className="text-white/20" size={48} />
-                </div>
-                <div className="avatar-face avatar-face-back absolute inset-0 rounded-full overflow-hidden bg-[#0f0f0f] flex items-center justify-center">
-                  <img
-                    src="/photo.jpg"
-                    alt="Franco Ortiz"
-                    className="relative z-10 w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                  />
-                  <User className="absolute text-white/20" size={48} />
-                </div>
+            <div
+              ref={avatarRef}
+              className={`avatar-glow w-36 h-36 md:w-52 md:h-52 rounded-full ${avatarGlowActive ? 'avatar-glow-active' : ''}`}
+            >
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-[var(--bg-surface-2)] flex items-center justify-center">
+                <img
+                  src="/photo.jpg"
+                  alt="Franco Ortiz"
+                  className="relative z-10 w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
+                <User className="absolute text-white/20" size={48} />
               </div>
             </div>
           </div>
@@ -572,18 +609,18 @@ export default function App() {
                 </h2>
               </div>
 
-              <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light">
+              <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[var(--text-muted-1)] leading-[1.8] font-light">
                 {education.map((edu, index) => (
                   <div key={index} className="flex gap-4">
-                    <GraduationCap className="text-[#555] shrink-0 mt-1" size={18} />
+                    <GraduationCap className="text-[var(--text-muted-3)] shrink-0 mt-1" size={18} />
                     <div>
                       <p className="text-white text-[13px] leading-snug">
-                        {edu.institution} <span className="text-[#666]">— {edu.country[currentLang]}</span>
+                        {edu.institution} <span className="text-[var(--text-muted-2)]">— {edu.country[currentLang]}</span>
                       </p>
-                      <p className="text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff] mt-1.5">{edu.period}</p>
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-[var(--accent-blue)] mt-1.5">{edu.period}</p>
                       <p className="mt-1.5 text-[12px]">
                         {edu.degree[currentLang]}
-                        {edu.note[currentLang] && <span className="text-[#666]"> {edu.note[currentLang]}</span>}
+                        {edu.note[currentLang] && <span className="text-[var(--text-muted-2)]"> {edu.note[currentLang]}</span>}
                       </p>
                     </div>
                   </div>
@@ -628,7 +665,7 @@ export default function App() {
                           )}
 
                           <div className="flex items-start gap-4 mb-4">
-                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[var(--bg-surface-2)]">
                               <img
                                 src={exp.image}
                                 alt={exp.company}
@@ -641,13 +678,13 @@ export default function App() {
                               <h3 className="font-sans text-base md:text-lg font-medium text-white leading-tight">
                                 {exp.company}
                               </h3>
-                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] tracking-wide">
+                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[var(--text-role)] tracking-wide">
                                 {exp.role[currentLang]} • {exp.period[currentLang]}
                               </p>
                             </div>
                           </div>
 
-                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[var(--text-card-body)] leading-relaxed mb-4">
                             {exp.description[currentLang]}
                           </p>
 
@@ -655,7 +692,7 @@ export default function App() {
                             {exp.stack[currentLang].map((tag, tagIndex) => (
                               <li
                                 key={tagIndex}
-                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                                className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-tag)] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
                               >
                                 {tag}
                               </li>
@@ -718,7 +755,7 @@ export default function App() {
                           )}
 
                           <div className="flex items-start gap-4 mb-4">
-                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                            <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[var(--bg-surface-2)]">
                               {project.image ? (
                                 <img
                                   src={project.image}
@@ -737,13 +774,13 @@ export default function App() {
                               <h3 className="font-sans text-base md:text-lg font-medium text-white capitalize leading-tight">
                                 {project.title[currentLang]}
                               </h3>
-                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                              <p className="font-[family-name:var(--font-mono)] text-[11px] text-[var(--text-role)] lowercase tracking-wide">
                                 {project.category[currentLang]}
                               </p>
                             </div>
                           </div>
 
-                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
+                          <p className="font-[family-name:var(--font-mono)] text-[12px] text-[var(--text-card-body)] leading-relaxed mb-4">
                             {project.description[currentLang]}
                           </p>
 
@@ -751,7 +788,7 @@ export default function App() {
                             {project.stack[currentLang].map((tech, techIndex) => (
                               <li
                                 key={techIndex}
-                                className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                                className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-tag)] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
                               >
                                 {tech}
                               </li>
@@ -788,7 +825,7 @@ export default function App() {
                     {currentLang === 'en' ? 'done.' : currentLang === 'fr' ? 'faites.' : 'hechas.'}
                   </span>
                 </h2>
-                <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[#9a9a9a] leading-relaxed">
+                <p className="mt-4 max-w-2xl font-[family-name:var(--font-mono)] text-[12px] text-[var(--text-role)] leading-relaxed">
                   {t.research.subtitle}
                 </p>
               </div>
@@ -813,7 +850,7 @@ export default function App() {
                         </div>
 
                         <div className="flex items-start gap-4 mb-4">
-                          <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[#0f0f0f]">
+                          <div className="shrink-0 w-12 h-12 rounded-xl border border-white/10 overflow-hidden bg-[var(--bg-surface-2)]">
                             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-white/10 to-white/0 text-white/70 font-[family-name:var(--font-mono)] text-[10px] tracking-wide">
                               R&D
                             </div>
@@ -823,16 +860,16 @@ export default function App() {
                             <h3 className="font-sans text-base md:text-lg font-medium text-white leading-tight">
                               {paper.title[currentLang]}
                             </h3>
-                            <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[#9ec9ff]">
+                            <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[var(--accent-blue)]">
                               {paper.accepted[currentLang]}
                             </p>
-                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[#9a9a9a] lowercase tracking-wide">
+                            <p className="font-[family-name:var(--font-mono)] text-[11px] text-[var(--text-role)] lowercase tracking-wide">
                               {paper.category[currentLang]}
                             </p>
                           </div>
                         </div>
 
-                        <p className="font-[family-name:var(--font-mono)] text-[12px] text-[#b4b4b4] leading-relaxed mb-4">
+                        <p className="font-[family-name:var(--font-mono)] text-[12px] text-[var(--text-card-body)] leading-relaxed mb-4">
                           {paper.description[currentLang]}
                         </p>
 
@@ -840,7 +877,7 @@ export default function App() {
                           {paper.stack[currentLang].map((topicTag, tagIndex) => (
                             <li
                               key={tagIndex}
-                              className="font-[family-name:var(--font-mono)] text-[10px] text-[#d2d2d2] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
+                              className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-tag)] bg-white/[0.03] border border-white/10 rounded-md px-2.5 py-1.5"
                             >
                               {topicTag}
                             </li>
@@ -867,7 +904,7 @@ export default function App() {
                 <span className="font-[family-name:var(--font-headline)] italic text-[1.4em]">{currentLang === 'en' ? 'chat?' : currentLang === 'fr' ? 'discute ?' : ''}</span>
               </h2>
             </div>
-            <p className="font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light max-w-md">
+            <p className="font-[family-name:var(--font-mono)] text-sm text-[var(--text-muted-1)] leading-[1.8] font-light max-w-md">
               {t.contact.description}
             </p>
             <div className="flex flex-col space-y-4">
@@ -880,7 +917,7 @@ export default function App() {
                 <span>{t.contact.button}</span>
                 <Linkedin size={14} className="group-hover:scale-110 transition-transform" />
               </a>
-              <div className="flex items-center space-x-6 pt-4 text-[#666]">
+              <div className="flex items-center space-x-6 pt-4 text-[var(--text-muted-2)]">
                 <a href="mailto:francoxortiz@gmail.com" className="hover:text-white transition-colors flex items-center gap-2 font-[family-name:var(--font-mono)] text-[11px]">
                   <Mail size={14} />
                   <span>francoxortiz@gmail.com</span>
@@ -890,40 +927,40 @@ export default function App() {
           </div>
 
           {/* Right Column - Form */}
-          <div className="bg-[#111] p-8 md:p-12 rounded-2xl border border-white/5">
+          <div className="bg-[var(--bg-panel)] p-8 md:p-12 rounded-2xl border border-white/5">
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="font-[family-name:var(--font-mono)] text-[10px] text-[#666] ml-1 lowercase">{t.contact.form.name}</label>
+                  <label className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-muted-2)] ml-1 lowercase">{t.contact.form.name}</label>
                   <input
                     type="text"
                     placeholder={t.contact.form.placeholders.name}
-                    className="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
+                    className="w-full bg-[var(--bg-surface)] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="font-[family-name:var(--font-mono)] text-[10px] text-[#666] ml-1 lowercase">{t.contact.form.email}</label>
+                  <label className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-muted-2)] ml-1 lowercase">{t.contact.form.email}</label>
                   <input
                     type="email"
                     placeholder={t.contact.form.placeholders.email}
-                    className="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
+                    className="w-full bg-[var(--bg-surface)] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="font-[family-name:var(--font-mono)] text-[10px] text-[#666] ml-1 lowercase">{t.contact.form.subject}</label>
+                <label className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-muted-2)] ml-1 lowercase">{t.contact.form.subject}</label>
                 <input
                   type="text"
                   placeholder={t.contact.form.placeholders.subject}
-                  className="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
+                  className="w-full bg-[var(--bg-surface)] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none text-white placeholder:text-white/15"
                 />
               </div>
               <div className="space-y-2">
-                <label className="font-[family-name:var(--font-mono)] text-[10px] text-[#666] ml-1 lowercase">{t.contact.form.message}</label>
+                <label className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-muted-2)] ml-1 lowercase">{t.contact.form.message}</label>
                 <textarea
                   rows={4}
                   placeholder={t.contact.form.placeholders.message}
-                  className="w-full bg-[#0a0a0a] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none resize-none text-white placeholder:text-white/15"
+                  className="w-full bg-[var(--bg-surface)] border border-white/5 rounded-xl px-5 py-3.5 font-[family-name:var(--font-mono)] text-sm focus:border-white/20 transition-all outline-none resize-none text-white placeholder:text-white/15"
                 />
               </div>
               <button
@@ -954,21 +991,21 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[#888] leading-[1.8] font-light">
+            <div className="grid gap-8 font-[family-name:var(--font-mono)] text-sm text-[var(--text-muted-1)] leading-[1.8] font-light">
               <div className="flex gap-5">
-                <Globe className="text-[#555] shrink-0 mt-1" size={18} />
+                <Globe className="text-[var(--text-muted-3)] shrink-0 mt-1" size={18} />
                 <p>{t.about.p1}</p>
               </div>
               <div className="flex gap-5">
-                <Heart className="text-[#555] shrink-0 mt-1" size={18} />
+                <Heart className="text-[var(--text-muted-3)] shrink-0 mt-1" size={18} />
                 <p>{t.about.p2}</p>
               </div>
               <div className="flex gap-5">
-                <Code className="text-[#555] shrink-0 mt-1" size={18} />
+                <Code className="text-[var(--text-muted-3)] shrink-0 mt-1" size={18} />
                 <p>{t.about.p3}</p>
               </div>
               <div className="flex gap-5">
-                <Rocket className="text-[#555] shrink-0 mt-1" size={18} />
+                <Rocket className="text-[var(--text-muted-3)] shrink-0 mt-1" size={18} />
                 <p>{t.about.p4}</p>
               </div>
               <div className="pt-6 text-center">
@@ -985,13 +1022,13 @@ export default function App() {
       <footer className="py-12 px-6 border-t border-white/5">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="font-[family-name:var(--font-sans)] text-lg text-white/60">franco ortiz</div>
-          <div className="font-[family-name:var(--font-mono)] text-[10px] text-[#555] lowercase">
+          <div className="font-[family-name:var(--font-mono)] text-[10px] text-[var(--text-muted-3)] lowercase">
             © {new Date().getFullYear()} {t.footer.rights}
           </div>
           <div className="flex items-center space-x-6">
-            <a href="https://github.com/francoxortiz1975" target="_blank" rel="noopener noreferrer" className="text-[#555] hover:text-white transition-colors"><Github size={16} /></a>
-            <a href="https://www.linkedin.com/in/francoxortiz" target="_blank" rel="noopener noreferrer" className="text-[#555] hover:text-white transition-colors"><Linkedin size={16} /></a>
-            <a href="mailto:francoxortiz@gmail.com" className="text-[#555] hover:text-white transition-colors"><Mail size={16} /></a>
+            <a href="https://github.com/francoxortiz1975" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted-3)] hover:text-white transition-colors"><Github size={16} /></a>
+            <a href="https://www.linkedin.com/in/francoxortiz" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted-3)] hover:text-white transition-colors"><Linkedin size={16} /></a>
+            <a href="mailto:francoxortiz@gmail.com" className="text-[var(--text-muted-3)] hover:text-white transition-colors"><Mail size={16} /></a>
           </div>
         </div>
       </footer>
