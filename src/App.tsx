@@ -6,10 +6,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Linkedin, Github, Mail, Send, ExternalLink, Menu, X, ChevronDown, Rocket, Heart, Globe, Code, GraduationCap, User, Sun, Moon } from 'lucide-react';
+import ChatWidget from './components/ChatWidget';
 
 type Theme = 'dark' | 'light';
 
-type Language = 'en' | 'fr' | 'es';
+export type Language = 'en' | 'fr' | 'es';
 
 const translations = {
   en: {
@@ -1032,6 +1033,8 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      <ChatWidget lang={currentLang} />
     </div>
   );
 }
